@@ -2,7 +2,6 @@ import sys
 import re
 input = sys.stdin.readline
 N = int(input())
-order = ""
 arr = []
 for _ in range(N):
     order = input()
