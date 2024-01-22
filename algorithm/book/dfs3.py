@@ -1,7 +1,7 @@
-n, m = map(int, input())
+n, m = map(int, input().split())
 graph = []
 for i in range(n):
-    graph.append(list(map(int, input().split())))
+    graph.append(list(map(int, input())))
 
 def dfs(x, y):
     # 주어진 범위를 벗어나면 종료
