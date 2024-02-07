@@ -10,11 +10,11 @@ for i in string:
         temp = True
         while stack:
             print(stack.pop(), end = "")
-        print(" ")
         stack.append(i)
     elif i == ">":
+        stack.append(i)
         while stack:
-            print(*stack, end = "")
+            print(stack.pop(0), end = "")
+        temp = False
     else:
         stack.append(i)
-    
