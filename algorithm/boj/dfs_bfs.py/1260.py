@@ -1,42 +1,41 @@
-from collections import deque
 import sys
+sys.setrecursionlimit(10**6)
 input = sys.stdin.readline
 
-n, m, v = map(int, input().split())
-graph = [[False] * (n + 1) for _ in range(n + 1)] 
-for i in range(m):
-    x, y = map(int, input().split())
-    graph[x][y] = 1
-    graph[y][x] = 1
-
-visited1 = [False] * (n + 1)
-visited2 = [False] * (n + 1)
-
-def dfs(v):
-    #방문 처리
-    visited1[v] = True
-    #방문 후, 정점 출력
-    print(v, end= " ")
-    #방문 기록이 없고, 인덱스에 값이 있다면(연결되어있다면)
-    for i in range(1, n + 1):
-        if not visited1[i] and graph[v][i] == 1:
+def dfs(idx):
+    global visited_dfs, graph
+    visited_dfs[idx] = True
+    print(idx, end = " ")
+    for i in graph[idx]:
+        if not visited_dfs[i]:
             dfs(i)
 
-def bfs(v):
-    q = deque([v])
-    # 방문 처리
-    visited2[v] = True
-    # 큐안에 데이터가 없을때까지 실행
+def bfs(idx):
+    global visited_bfs, graph
+    visited_bfs[idx] = True
+    q = [idx]
     while q:
-        # 큐 맨 앞의 값을 꺼내서 출력
-        v = q.popleft()
+        v = q.pop(0)
         print(v, end = " ")
-        for i in range(1, n + 1):
-            #방문 기록이 없고, 인덱스에 값이 있다면(연결되어있다면)
-            if not visited2[i] and graph[v][i] == 1:
-                q.append(i) #큐에 추가
-                visited2[i] = True
+        for i in graph[v]:
+            if not visited_bfs[i]:
+                q.append(i)
+                visited_bfs[i] = True
+                
 
-dfs(v)
+
+N, M, V = map(int, input().split()) # N 노드 M 엣지, V 시작점
+graph = [[] * (N+1) for _ in range(N+1)]
+visited_dfs = [False] * (N+1)
+visited_bfs = [False] * (N+1)
+for _ in range(M):
+    x, y = map(int, input().split())
+    graph[x].append(y)
+    graph[y].append(x)
+
+for i in range(1, N + 1):
+    graph[i] = sorted(graph[i])
+
+dfs(V)
 print()
-bfs(v)
+bfs(V)
