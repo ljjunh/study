@@ -1,7 +1,11 @@
+import sys
+input = sys.stdin.readline
+
 def bfs(idx):
-    global graph, visited
-    i = 1
-    visited[idx] = i
+    global graph, visited, answer, order
+    visited[idx] = True
+    answer[idx] = order
+    order += 1
     q = []
     q.append(idx)
     while q:
@@ -9,18 +13,30 @@ def bfs(idx):
         for i in graph[v]:
             if not visited[i]:
                 q.append(i)
-                visited[i] = i
-                i += 1
+                visited[i] = True
+                answer[i] = order
+                order += 1
+                 
 
-
+# 0. 입력 받기
 N, M, R = map(int, input().split())
+MAX = 100000 + 10
 graph = [[] for _ in range(N+1)]
-visited = [0] * (N+1)
-for i in range(M):
+visited = [False] * MAX
+answer = [0] * MAX
+order = 1
+# 1. 그래프 정보 입력
+for _ in range(M):
     x, y = map(int, input().split())
     graph[x].append(y)
     graph[y].append(x)
-for i in range(1, N+1):
+
+# 2. 오름차순
+for i in range(1, N + 1):
     graph[i] = sorted(graph[i])
+
+# 3. BFS 호출
 bfs(R)
-print(*visited[1:], sep = "\n")
+# 4. 출력
+for i in range(1, N + 1):
+    print(answer[i])
