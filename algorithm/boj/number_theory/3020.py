@@ -6,7 +6,7 @@ for i in range(N):
     height = int(input())
     if i % 2 == 0:
         graph[H-height] += 1
-    else:
+    if i % 2 == 1:
         graph[0] += 1
         graph[height] -= 1
 prefix = [0 for _ in range(H+1)]
