@@ -12,4 +12,5 @@ for i in range(N):
 prefix = [0 for _ in range(H+1)]
 for i in range(H):
     prefix[i+1] = prefix[i] + graph[i]
-print(min(prefix[1:]), prefix.count(min(prefix[1:])))
+prefix = prefix[1:]
+print(min(prefix), prefix.count(min(prefix)))
