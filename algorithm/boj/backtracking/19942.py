@@ -1,26 +1,35 @@
-def recur(n, a, b, c, d, price, use):
-    global ans, ans_lst                                                                      
-    if n == N:
-        if a < min_arr[0] or b < min_arr[1] or c < min_arr[2] or d < min_arr[3]:
-            return
-        if ans > price:
-            ans = price
-            ans_lst = use
+import sys
+input = sys.stdin.readline
+def recur(idx, A, B, C, D, E):
+    global ans, used, ans_used
+
+    if a <= A and b <= B and c <= C and d <= D:
+        if ans > E:
+            ans = min(ans, E)
+            ans_used = []
+            for i in used:
+                ans_used.append(i)
+    if idx == N:
         return
-    recur(n+1, a+arr[n][0], b+arr[n][1], c+arr[n][2], d+arr[n][3], price+arr[n][4], use + [n+1])
-    recur(n+1, a, b, c, d, price, use)
+    used.append(idx+1)
+    recur(idx+1, A+arr[idx][0], B+arr[idx][1], C+arr[idx][2], D+arr[idx][3], E+arr[idx][4])
+    used.pop()
+    recur(idx+1, A, B, C, D, E)
 
 N = int(input())
-min_arr = list(map(int, input().split()))
+a, b, c, d = map(int, input().split())
 arr = [list(map(int, input().split())) for _ in range(N)]
 ans = 2147000000
-ans_lst = []
-recur(0, 0, 0, 0, 0, 0, [])
-if ans == 2147000000 and ans_lst == []:
-    print(-1)
-else:
+used = []
+ans_used = []
+recur(0, 0, 0, 0, 0, 0)
+ans_used.sort()
+if ans_used:
     print(ans)
-    print(*ans_lst)
+    print(*ans_used)
+else:
+    print(-1)
+
 # 2
 # 0 0 0 10
 # 0 0 0 10 1
