@@ -3,11 +3,9 @@ input = sys.stdin.readline
 
 def recur(n, s, use):
     global ans
-    if s == S:
-        if use != 0:
-            ans += 1
-    
     if n == N:
+        if s == S and use > 0:
+            ans += 1
         return
     
     recur(n+1, s+arr[n], use + 1)
