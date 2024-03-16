@@ -4,10 +4,13 @@ input = sys.stdin.readline
 def recur(n, s, lst):
     if n == L:
         cnt = 0
+        cnt2 = 0
         for k in lst:
-            if k in vowel:
+            if k in "aeiou":
                 cnt += 1
-        if cnt >= 1 and L-cnt >=2:
+            else:
+                cnt2 += 1
+        if cnt >= 1 and cnt2 >=2:
             print(*lst, sep="")
         return
     for i in range(s, C):
@@ -21,5 +24,4 @@ L, C = map(int, input().split())
 arr = list(input().split())
 arr.sort()
 visited = [0] * (C)
-vowel = ["a", "e", "i", "o", "u"]
 recur(0, 0, [])
