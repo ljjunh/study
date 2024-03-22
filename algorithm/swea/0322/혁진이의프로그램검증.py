@@ -5,10 +5,13 @@ T = int(input())
 for tc in range(1, T + 1):
     R, C = map(int, input().split())
     arr = [list(input()) for _ in range(R)]
+    if "@" not in arr:
+        print(f"#{tc} {"NO"}")
+        continue
     memory = 0
     x = y = 0
+    d = 3 # 기본적으로 오른쪽으로 가게 셋팅
     while True:
-        d = 3 # 기본적으로 오른쪽으로 가게 셋팅
         if arr[x][y] == "@":
             print(f"#{tc} {'YES'}")
             break
@@ -37,7 +40,7 @@ for tc in range(1, T + 1):
             if memory == 0:
                 d = 3
             else:
-                d = 4
+                d = 2
         elif arr[x][y] == "|":
             if memory == 0:
                 d = 1
@@ -51,4 +54,4 @@ for tc in range(1, T + 1):
             break
         x += dx[d]
         y += dy[d]
-    
+   
