@@ -2,8 +2,8 @@ import sys
 from collections import deque
 input = sys.stdin.readline
 # for문으로 안익은 토마토 개수를 세고 익은 토마토는 방문처리를 하고 큐에 넣어놓고
-# while문으로 큐에 들어가있는 익은 토마토에서 안익은 토마토를 익히면서 visited배열에 
-# 얼마나 걸리는지 저장하고 방문할때마다 안익은토마토를 -1씩 해주면서while문을 나오고 나서 
+# while문으로 큐에 들어가있는 익은 토마토에서 안익은 토마토를 익히면서 
+# 얼마나 걸리는지 visited배열에 저장하고 방문할때마다 안익은토마토를 -1씩 해주면서while문을 나오고 나서 
 # 안익은 토마토가 없으면 큐에서 가장마지막에 나온 좌표의 visited배열에 저장된 값을 출력
 def bfs():
     # 1. q, visited 생성
