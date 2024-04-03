@@ -7,7 +7,7 @@ age = 30;
 //           그래서 선언과 동시에 초기값을 할당하는 초기화를 해줘야 함
 const birth = "1996.06.10";
 // birth = "123";
-console.log(birth)
+console.log(birth);
 
 // 3. 변수 네이밍 규칙
 // 3-1. $나 _를 제외한 기호는 사용할 수 없다.
