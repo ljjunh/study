@@ -1,17 +1,8 @@
-import sys
-
-input = sys.stdin.readline
-sys.setrecursionlimit(10**6)
-
-dx = [-1, 1, 0, 0]
-dy = [0, 0, -1, 1]
-
-
 def dfs(x, y, cnt):
     global visited, ans
     ans = max(ans, cnt)  # 최대값 구하는거니까 재귀할때마다 최대값 교체
-    for k in range(4):
-        nx, ny = x + dx[k], y + dy[k]
+    for dx, dy in ((-1, 0), (1, 0), (0, -1), (0, 1)):
+        nx, ny = x + dx, y + dy
         # 4방향, 범위 내, 중복 값x
         if 0 <= nx < N and 0 <= ny < M and not visited[ord(graph[nx][ny])]:
             visited[ord(graph[nx][ny])] = 1  # 갈수있을대까지 방문처리하면서 방문
@@ -21,7 +12,7 @@ def dfs(x, y, cnt):
 
 
 N, M = map(int, input().split())
-graph = [list(input().rstrip()) for _ in range(N)]
+graph = list(input() for _ in range(N))
 visited = [0] * 91  # 아스키Z : 90 이고 idx는 0부터 시작하니까 90 + 1
 visited[ord(graph[0][0])] = 1  # 첫번째 좌표 방문처리
 ans = 1  # 첫번째좌표 정답에 추가
