@@ -54,5 +54,5 @@ console.log(sorted);
 // 5. join
 // 배열의 모든 요소를 하나의 문자열로 합쳐서 반환하는 메서드
 let arr6 = ["hi", "im", "junhee"];
-const joined = arr6.join(" "); // 구분자 변경 가능
+const joined = arr6.join("/"); // 구분자 변경 가능
 console.log(joined);
