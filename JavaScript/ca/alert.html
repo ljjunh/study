@@ -1,29 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="main.css" />
-  </head>
-  <body>
-    <!-- UI 만드는 STEP -->
-    <!-- 1. HTML/CSS로 미리 디자인 -->
-    <!-- 2. 필요할 때 보여달라고 자바스크립트로 코드 짜기 -->
 
-    <!-- 알림창 닫기버튼과 기능 만들기 -->
-    <div class="alert-box" id="alert">
-      <p id="title">알림창임</p>
-      <button onclick="alertOnOff('none');">닫기</button>
-    </div>
-    <button onclick="alertOnOff('block', '아이디입력해주세요');">버튼1</button>
-    <button onclick="alertOnOff('block','비번입력하세요');">버튼2</button>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="main.css" />
 
-    <script>
-      function alertOnOff(state, sentence) {
-        document.getElementById("alert").style.display = state;
-        document.getElementById("title").innerHTML = sentence;
-      }
-    </script>
-  </body>
+</head>
+
+<body>
+  <!-- UI 만드는 STEP -->
+  <!-- 1. HTML/CSS로 미리 디자인 -->
+  <!-- 2. 필요할 때 보여달라고 자바스크립트로 코드 짜기 -->
+
+  <!-- 알림창 닫기버튼과 기능 만들기 -->
+  <div class="alert-box" id="alert">
+    <p id="title">알림창임</p>
+    <button id="close">닫기</button>
+  </div>
+  <button onclick="alertOnOff('block', '아이디입력해주세요');">버튼1</button>
+  <button onclick="alertOnOff('block','비번입력하세요');">버튼2</button>
+
+  <script>
+    document.getElementById('close').addEventListener('click', () => {
+      document.getElementById('alert').style.display = 'none';
+    });
+
+    function alertOnOff(state, sentence) {
+      document.getElementById("alert").style.display = state;
+      document.getElementById("title").innerHTML = sentence;
+    }
+  </script>
+</body>
+
 </html>

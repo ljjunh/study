@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="main.css">
+    <title>Hello, world!</title>
+</head>
+
+<body>
+
+
+    <div class="black-bg">
+        <div class="white-bg">
+            <h4>로그인하세요</h4>
+            <form action="success.html">
+                <div class="my-3">
+                    <input type="text" class="form-control" id="email">
+                </div>
+                <div class="my-3">
+                    <input type="password" class="form-control" id="pw">
+                </div>
+                <button type="submit" class="btn btn-primary">전송</button>
+                <button type="button" class="btn btn-danger" id="close">닫기</button>
+            </form>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <span class="navbar-brand">Navbar</span>
+            <button class="navbar-toggler" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+    <ul class="list-group">
+        <li class="list-group-item">An item</li>
+        <li class="list-group-item">A second item</li>
+        <li class="list-group-item">A third item</li>
+        <li class="list-group-item">A fourth item</li>
+        <li class="list-group-item">And a fifth one</li>
+    </ul>
+
+
+    <div class="main-bg">
+        <h4>Shirts on Sale</h4>
+        <button id="login" class="btn btn-danger">로그인</button>
+    </div>
+
+
+    <script>
+        document.querySelectorAll('.list-group-item')[3].innerHTML = "하이";
+        // 파라미터에는 아이디는 # 클래스는 .
+        // querySelector = 맨 위의 하나만 가져옴
+        // querySelectorAll = 전체를 다 가져와서 그중에 인덱싱해서 사용
+
+        document.querySelector('.navbar-toggler').addEventListener('click', () => {
+            document.querySelectorAll('.list-group')[0].classList.toggle('show')
+            // toggle: 있으면 없애고, 없으면 붙여줌
+        });
+        document.querySelector('#login').addEventListener('click', () => {
+            document.querySelector('.black-bg').classList.add('show-modal')
+        })
+        document.querySelector('#close').addEventListener('click', () => {
+            document.querySelector('.black-bg').classList.remove("show-modal")
+        })
+
+        // 1. 전송버튼 누르면 2. input에 입력한 값이 공백이면 3. 알림창
+        document.querySelector('form').addEventListener('submit', function (e) {
+            if (document.querySelector('#email').value == '') {
+                e.preventDefault(); // a나 submit같은 페이지를 새로고침하거나, 이동하는걸 막아줌
+                alert('아이디를 입력해주세요');
+            }
+            if (document.querySelector('#pw').value == '') {
+                e.preventDefault();
+                alert('비밀번호를 입력해주세요');
+            }
+            if (document.querySelector('#pw').value.length < 6) {
+                e.preventDefault();
+                alert('비밀번호를 6자 이상 입력해주세요')
+
+            }
+        })
+
+        document.getElementById('email').addEventListener('change', function () {
+            console.log('안녕');
+            //change : value값이 바뀌고 커서가 다른곳을 클릭하면 이벤트실행
+            //input : value값이 바뀔때마다 이벤트 실행
+        })
+
+
+    </script>
+    <!-- bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
