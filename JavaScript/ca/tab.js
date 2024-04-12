@@ -7,13 +7,23 @@
 var tb = document.querySelectorAll(".tab-button");
 var tc = document.querySelectorAll(".tab-content");
 var cnt = document.querySelectorAll(".tab-button").length;
-for (let i = 0; i < cnt; i++) {
-  tb[i].addEventListener("click", () => {
+// for (let i = 0; i < cnt; i++) {
+//   탭열기(i)
+// }
+
+document.querySelector(".list").addEventListener('click', (e)=>{
+  탭열기(parseInt(e.target.dataset.id))
+
+})
+
+
+function 탭열기(숫자){
+  tb[숫자].addEventListener("click", () => {
     for (let j = 0; j < 3; j++) {
       tb[j].classList.remove("orange");
       tc[j].classList.remove("show");
     }
-    tb[i].classList.add("orange");
-    tc[i].classList.add("show");
+    tb[숫자].classList.add("orange");
+    tc[숫자].classList.add("show");
   });
 }

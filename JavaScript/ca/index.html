@@ -29,7 +29,24 @@
       </form>
     </div>
   </div>
+  <script>
+    // 모달창 닫기
+    // 이렇게 닫으면 이벤트버블링 일어나서 입력창 건드려도 닫아짐
+    document.querySelector(".black-bg").addEventListener('click', (e)=>{
+      // e.target(); // 유저가 실제로 누른거
+      // e.currentTarget(); // 이벤트리스너가 달린 곳 this랑 같음
+      // e.preventDefault(); // 이벤트 기본동작 막아줌
+      // e.stopPropagation(); // 상위요소로 퍼지는 이벤트 버블링 막아줌
+      
+      // 실제로 클릭한곳이 black-bg 클래스면 black-bg의 show-modal 클래스 제거
+      if (e.target == document.querySelector(".black-bg")){
+        document.querySelector(".black-bg").classList.remove('show-modal');
+      }
+    })
 
+
+
+  </script>
   <nav class="navbar navbar-light bg-light">
     <div class="container-fluid">
       <span class="navbar-brand">JJShop</span>

@@ -54,11 +54,24 @@
     }
   </style>
   <body>
+    <div class="container mt-3">
+      <div class="card p-3">
+        상품명 / 가격
+      </div>
+    </div>
+<script>
+  var car = {
+    name : '소나타',
+    price : 50000,
+  }
+  document.querySelector('.card').innerHTML = car['name'] + '/' + car.price;
+</script>
+
     <div class="container mt-5">
       <ul class="list">
-        <li class="tab-button">Products</li>
-        <li class="tab-button">Information</li>
-        <li class="tab-button">Shipping</li>
+        <li class="tab-button" data-id="0">Products</li>
+        <li class="tab-button" data-id="1">Information</li>
+        <li class="tab-button"data-id="2">Shipping</li>
       </ul>
       <div class="tab-content">
         <p>상품설명입니다. Product</p>
