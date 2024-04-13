@@ -67,3 +67,6 @@
   background-color: black;
   height: 10px;
 }
+.form-hide {
+  display: none;
+}

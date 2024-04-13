@@ -56,22 +56,53 @@
   <body>
     <div class="container mt-3">
       <div class="card p-3">
-        상품명 / 가격
+        <span class="car-title">상품명</span>
+        <span class="car-price">가격</span>
       </div>
     </div>
-<script>
-  var car = {
-    name : '소나타',
-    price : 50000,
-  }
-  document.querySelector('.card').innerHTML = car['name'] + '/' + car.price;
-</script>
+    <script>
+      var car = {
+        name: "소나타",
+        price: [50000, 3000, 4000],
+      };
+      document.querySelector(".car-title").innerHTML = car["name"];
+      document.querySelector(".car-price").innerHTML = car["price"][2];
+    </script>
+
+    <form class="container my-5 form-group">
+      <p>상품선택</p>
+      <select class="form-select mt-2">
+        <option>모자</option>
+        <option>셔츠</option>
+      </select>
+      <select class="form-select mt-2 form-hide">
+        <option>90</option>
+        <option>95</option>
+        <option>100</option>
+      </select>
+    </form>
+    <script>
+      //select를 누르면 display:none되어있던걸 block으로 보여줌
+      document
+        .querySelectorAll(".form-select")[0]
+        .addEventListener("input", (e) => {
+          if (e.currentTarget.value == "셔츠") {
+            document
+              .querySelectorAll(".form-select")[1]
+              .classList.remove("form-hide");
+          } else {
+            document
+              .querySelectorAll(".form-select")[1]
+              .classList.add("form-hide");
+          }
+        });
+    </script>
 
     <div class="container mt-5">
       <ul class="list">
         <li class="tab-button" data-id="0">Products</li>
         <li class="tab-button" data-id="1">Information</li>
-        <li class="tab-button"data-id="2">Shipping</li>
+        <li class="tab-button" data-id="2">Shipping</li>
       </ul>
       <div class="tab-content">
         <p>상품설명입니다. Product</p>
