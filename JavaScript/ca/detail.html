@@ -74,15 +74,21 @@
       <select class="form-select mt-2">
         <option>모자</option>
         <option>셔츠</option>
+        <option>바지</option>
       </select>
-      <select class="form-select mt-2 form-hide">
-        <option>90</option>
-        <option>95</option>
-        <option>100</option>
-      </select>
+      <select class="form-select mt-2 form-hide"></select>
     </form>
+
+    <div id="test">
+      <h4>하이</h4>
+    </div>
     <script>
-      //select를 누르면 display:none되어있던걸 block으로 보여줌
+      //insertAdjacentHTML = 문자형 HTML넣어주는 함수
+      //beforeend = 안쪽 맨 밑
+      //innerHTML = 안에꺼 전부 지우고 새로운걸로 바꿀 때
+
+      var pants = [28, 30, 32, 34];
+      var shirts = [95, 100, 105, 110];
       document
         .querySelectorAll(".form-select")[0]
         .addEventListener("input", (e) => {
@@ -90,12 +96,63 @@
             document
               .querySelectorAll(".form-select")[1]
               .classList.remove("form-hide");
+            document.querySelectorAll(".form-select")[1].innerHTML = "";
+            shirts.forEach((data) => {
+              document
+                .querySelectorAll(".form-select")[1]
+                .insertAdjacentHTML("beforeend", `<option>${data}</option>`);
+            });
+          } else if (e.currentTarget.value == "바지") {
+            document
+              .querySelectorAll(".form-select")[1]
+              .classList.remove("form-hide");
+            document.querySelectorAll(".form-select")[1].innerHTML = "";
+
+            //array에 붙일 수 있는 forEach반복문
+            pants.forEach((data) => {
+              document
+                .querySelectorAll(".form-select")[1]
+                .insertAdjacentHTML("beforeend", `<option>${data}</option>`);
+            });
           } else {
             document
               .querySelectorAll(".form-select")[1]
               .classList.add("form-hide");
           }
         });
+      // 과제1
+      var 출석부 = ["흥민", "영희", "철수", "재석"];
+      function 이름찾기(name) {
+        출석부.forEach((data) => {
+          if (data == name) {
+            console.log("있어요");
+            return;
+          }
+        });
+      }
+      이름찾기("영희");
+      // 과제2
+      for (let i = 2; i < 10; i++) {
+        for (let j = 1; j < 10; j++) {
+          console.log(`${i} * ${j} = ${i * j}`);
+        }
+      }
+      // 과제3
+      function 평균(arr, prev) {
+        now_sum = 0;
+        for (let i = 0; i < arr.length; i++) {
+          now_sum += arr[i];
+        }
+        now_avg = now_sum / arr.length;
+        if (now_avg > prev) {
+          console.log(`평균보다 ${now_avg - prev}점이 올랐네요`);
+        } else if (now_avg < prev) {
+          console.log(`평균보다 ${prev - now_avg}점이 떨어졌네요`);
+        } else {
+          console.log("점수가 똑같네요");
+        }
+      }
+      평균([40, 40, 40], 20);
     </script>
 
     <div class="container mt-5">
