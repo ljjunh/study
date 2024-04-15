@@ -1,0 +1,14 @@
+<div class="cart">장바구니페이지</div>
+
+<script>
+  //숙제 2. cart.html만들고 localStorage에 저장된 상품명들 다 보여주기
+  // localStorage에 있는 cart 배열에 담기
+  arr = localStorage.getItem("cart");
+  // JSON문자열이니까 다시 배열로 변환
+  newArr = JSON.parse(arr);
+  for (i = 0; i < newArr.length; i++) {
+    document
+      .querySelector(".cart")
+      .insertAdjacentHTML("beforeend", `<p>${newArr[i]}</p>`);
+  }
+</script>

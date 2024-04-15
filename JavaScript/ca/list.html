@@ -13,24 +13,36 @@
       crossorigin="anonymous"
     />
     <!-- jquery -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-</head>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
     <link rel="stylesheet" href="main.css" />
     <title>Hello, world!</title>
   </head>
   <body>
     <div class="container">
       <div class="row">
-    
-          <!-- <div class="col-sm-4">
+        <!-- <div class="col-sm-4">
             <img src="https://via.placeholder.com/600" class="w-100">
             <h5>Card title</h5>
             <p>가격 : 70000</p>
           </div> -->
-    
       </div>
-    </div> 
+    </div>
+    <div class="container my-3">
+      <button class="btn btn-danger">더보기</button>
+    </div>
+    <div class="container my-3">
+      <button class="btn btn-danger" id="price">가격순정렬</button>
+    </div>
+    <div class="container my-3">
+      <button class="btn btn-danger" id="name">상품명으로 정렬</button>
+    </div>
+    <div class="container my-3">
+      <button class="btn btn-danger" id="under6">6만원 이하 상품만 보기</button>
+    </div>
 
     <script>
       var products = [
@@ -38,7 +50,193 @@
         { id: 1, price: 50000, title: "Springfield Shirt" },
         { id: 2, price: 60000, title: "Black Monastery" },
       ];
+      // 변수는 페이지가 새로고침될때마다 초기화되서 영구적 저장을 불가
+      // Local Storage : 이름:값 형태로 저장 가능
+      // 사이트 재접속해도 유지
+      // 용량은 5MB, 문자/숫자만 저장가능(arr, object 불가)
+
+      // sessionStorage : 이름:값 형태로 저장 가능
+      // 사이트 나가면 자동 삭제
+
+      // IndexedDB : 구조화된 대용량 데이터 저장시
+      // Cookies : 보통 고르인 정보 저장
+      // Cache Storage : html css js파일 저장하는 곳
       //card 3개에 위의 데이터 넣어서 js로 html생성
+      products.forEach((a) => {
+        document.querySelectorAll(".row")[0].insertAdjacentHTML(
+          "beforeend",
+          `<div class="col-sm-4">
+            <img src="https://via.placeholder.com/600" class="w-100">
+            <h5>${a.title}</h5>
+            <p>가격 : ${a.price}</p>
+            <button class="buy">구매</button>
+          </div>`
+        );
+      });
+
+      //과제1. '상품명 다나가순 정렬' 버튼과 기능(문자 역순 정렬)
+      document.querySelector("#name").addEventListener("click", () => {
+        document.querySelectorAll(".row")[0].innerHTML = "";
+        products.sort((a, b) => {
+          if (a.title < b.title) {
+            return 1;
+          } else if (a.title > b.title) {
+            return -1;
+          } else {
+            return 0;
+          }
+        });
+        products.forEach((a) => {
+          document.querySelectorAll(".row")[0].insertAdjacentHTML(
+            "beforeend",
+            `<div class="col-sm-4">
+            <img src="https://via.placeholder.com/600" class="w-100">
+            <h5>${a.title}</h5>
+            <p>가격 : ${a.price}</p>
+          </div>`
+          );
+        });
+      });
+
+      //과제2. '6만원 이하 상품만 보기' 버튼과 기능
+      document.querySelector("#under6").addEventListener("click", () => {
+        document.querySelectorAll(".row")[0].innerHTML = "";
+        let newProducts = products.filter((item) => item.price <= 60000);
+        newProducts.forEach((a) => {
+          document.querySelectorAll(".row")[0].insertAdjacentHTML(
+            "beforeend",
+            `<div class="col-sm-4">
+            <img src="https://via.placeholder.com/600" class="w-100">
+            <h5>${a.title}</h5>
+            <p>가격 : ${a.price}</p>
+          </div>`
+          );
+        });
+      });
+
+      //localStorage에 저장 (key,value)
+      // localStorage.setItem("이름", "lim");
+      // //localStorage에서 값 가져오기
+      // console.log(localStorage.getItem("이름"));
+      // //localStorage에서 삭제
+      // localStorage.removeItem("이름");
+      // //localStorage에 array,object강제저장
+      // let arr = [1, 2, 3]; //array/object->JSON으로 바꾸면 저장가능
+      // let newArr = JSON.stringify(arr);
+      // localStorage.setItem("num", newArr);
+      // var 꺼낸거 = localStorage.getItem("num");
+      // console.log(JSON.parse(꺼낸거)[1]); //문자여서 인덱싱안되니까 다시 변환
+
+      //수정하려면
+      // 1. 자료꺼내기
+      // 2. 꺼낸거 수정
+      // 3. 다시 localStorage에 넣기
+
+      //숙제 1. 구매버튼 누르면 상품명 localStorage에 저장
+      // ex) cart : [상품명1, 상품명2]
+      // 형제요소 찾기
+      // localStorage가 비어있을 때, 안에 뭐가 있을때 다르게
+
+      const buyButtons = document.querySelectorAll(".buy");
+      buyButtons.forEach((button) => {
+        button.addEventListener("click", function () {
+          // 버튼의 부모요소 찾기
+          const parentDiv = this.parentElement;
+          // 부모요소에서 <h5>선택하고 텍스트 가져오기
+          const title = parentDiv.querySelector("h5").textContent;
+          // 만약 localStorage가 비어있으면
+          if (localStorage.length == 0) {
+            // json으로 바꿔서 배열 강제저장
+            let arr = JSON.stringify([title]);
+            localStorage.setItem("cart", arr);
+          } else {
+            // localStorage에 있는거 tmp에 임시저장
+            let tmp = localStorage.getItem("cart");
+            // 문자열이니까 다시 배열로 바꾸기
+            let newArr = JSON.parse(tmp);
+            // localStorage비우기
+            localStorage.removeItem("cart");
+            // 새로누른 아이템 추가
+            newArr.push(title);
+            // 다시 JSON으로 바꿔서 배열 강제저장
+            let result = JSON.stringify(newArr);
+            localStorage.setItem("cart", result);
+          }
+        });
+      });
+    </script>
+
+    <script>
+      // 가격순정렬
+      document.querySelector("#price").addEventListener("click", () => {
+        products.sort((a, b) => {
+          return a.price - b.price;
+        });
+        document.querySelectorAll(".row")[0].innerHTML = "";
+        products.forEach((a) => {
+          document.querySelectorAll(".row")[0].insertAdjacentHTML(
+            "beforeend",
+            `<div class="col-sm-4">
+            <img src="https://via.placeholder.com/600" class="w-100">
+            <h5>${a.title}</h5>
+            <p>가격 : ${a.price}</p>
+          </div>`
+          );
+        });
+      });
+      // filter()원하는것만 필터링, 원본 변형x
+      // var arr = [7, 3, 5, 2, 40];
+      // var newArr = arr.filter((a) => {
+      //   return a < 4;
+      // });
+      // console.log(arr);
+      // console.log(newArr);
+
+      // map() 자료 전부 변형, 원본 변형x
+      // var arr2 = [1, 2, 3, 4, 5];
+      // var newArr2 = arr2.map((a) => {
+      //   return a * 2;
+      // });
+      // console.log(arr2);
+      // console.log(newArr2);
+    </script>
+    <script>
+      // 더보기 버튼 누르면 상품3개 가져와서 출력하기
+      let cnt = 0;
+      document.querySelectorAll(".btn")[0].addEventListener("click", () => {
+        cnt += 1;
+        if (cnt == 1) {
+          fetch("https://codingapple1.github.io/js/more1.json")
+            .then((res) => res.json())
+            .then((data) => {
+              data.forEach((a) => {
+                document.querySelectorAll(".row")[0].insertAdjacentHTML(
+                  "beforeend",
+                  `<div class="col-sm-4">
+            <img src="https://via.placeholder.com/600" class="w-100">
+            <h5>${a.title}</h5>
+            <p>가격 : ${a.price}</p>
+          </div>`
+                );
+              });
+            });
+        } else if (cnt == 2) {
+          fetch("https://codingapple1.github.io/js/more2.json")
+            .then((res) => res.json())
+            .then((data) => {
+              data.forEach((a) => {
+                document.querySelectorAll(".row")[0].insertAdjacentHTML(
+                  "beforeend",
+                  `<div class="col-sm-4">
+            <img src="https://via.placeholder.com/600" class="w-100">
+            <h5>${a.title}</h5>
+            <p>가격 : ${a.price}</p>
+          </div>`
+                );
+              });
+            });
+        }
+      });
     </script>
 
     <script>
