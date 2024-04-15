@@ -12,36 +12,25 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
     <link rel="stylesheet" href="main.css" />
     <title>Hello, world!</title>
   </head>
   <body>
-    <div class="card-group container">
-      <div class="card">
-        <img src="https://via.placeholder.com/600" />
-        <div class="card-body">
-          <h5>Card title</h5>
-          <p>가격 : 70000</p>
-          <button class="btn btn-danger">주문하기</button>
-        </div>
+    <div class="container">
+      <div class="row">
+    
+          <!-- <div class="col-sm-4">
+            <img src="https://via.placeholder.com/600" class="w-100">
+            <h5>Card title</h5>
+            <p>가격 : 70000</p>
+          </div> -->
+    
       </div>
-      <div class="card">
-        <img src="https://via.placeholder.com/600" />
-        <div class="card-body">
-          <h5>Card title</h5>
-          <p>가격 : 70000</p>
-          <button class="btn btn-danger">주문하기</button>
-        </div>
-      </div>
-      <div class="card">
-        <img src="https://via.placeholder.com/600" />
-        <div class="card-body">
-          <h5>Card title</h5>
-          <p>가격 : 70000</p>
-          <button class="btn btn-danger">주문하기</button>
-        </div>
-      </div>
-    </div>
+    </div> 
 
     <script>
       var products = [
@@ -49,15 +38,16 @@
         { id: 1, price: 50000, title: "Springfield Shirt" },
         { id: 2, price: 60000, title: "Black Monastery" },
       ];
-      for (let i = 0; i < products.length; i++) {
-        document.querySelectorAll(".card-body h5")[i].innerHTML =
-          products[i]["title"];
-        document.querySelectorAll(".card-body p")[
-          i
-        ].innerHTML = `가격 : ${products[i]["price"]}`;
-      }
-      var a = "안녕";
-      console.log(`문자${a}문자`);
+      //card 3개에 위의 데이터 넣어서 js로 html생성
+    </script>
+
+    <script>
+      // ajax
+      // fetch('https://codingapple1.github.io/price.json').then(res=>res.json()).then((data)=>{
+      //   console.log(data) // .then(res => res.json())  받아온 JSON을 object로 바꿔주는 기능
+      // }).catch((error)=>{
+      //   console.log(error)
+      // })
     </script>
 
     <!-- bootstrap -->
