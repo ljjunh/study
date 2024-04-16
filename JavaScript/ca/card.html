@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="main.css" />
+  </head>
+  <body>
+    <div class="card-background">
+      <div class="card-box"><img src="card1.png" alt="" /></div>
+      <div class="card-box"><img src="card2.png" alt="" /></div>
+      <div class="card-box"><img src="card3.png" alt="" /></div>
+    </div>
+  </body>
+
+  <script>
+    window.addEventListener("scroll", () => {
+      var 높이 = window.scrollY; //현재 스크롤바 높이
+      console.log(높이);
+      var y = (-1 / 500) * 높이 + 115 / 50;
+      //a = -0.1/500
+      //b = -649.0002
+      var z = (-1 / 5000) * 높이 + 565 / 500;
+      //650일때 opacity 1
+      //1150일때 opacity 0
+      document.querySelectorAll(".card-box")[0].style.opacity = y;
+      document.querySelectorAll(".card-box")[0].style.transform = `scale(${z})`;
+    });
+  </script>
+</html>
