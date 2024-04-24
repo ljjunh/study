@@ -17,11 +17,19 @@ function App() {
   // const [a, b] 에 기본값과 함수를 넣어주는거임
   // 왜 let놔두고 state를 써야함?
   // let은 변경되더라도 리렌더링이 안되는데, state는 변경될때마다 html전체가 자동으로 리렌더링 됨
+  const [like, setLike] = useState([0, 0, 0]);
 
-  const [like, setLike] = useState(0);
-  function likeUp() {
-    setLike(like + 1);
-  }
+  // 동적인 UI만드는 step
+  // 1. html css로 미리 디자인 완성
+  // 2. UI의 현재 상태를 state로 저장
+  // 3. state에 따라 UI가 어떻게 보일지 작성
+  let [modal, setModal] = useState(false);
+
+  // map함수
+  // 1.왼쪽 array 자료길이만큼 내부코드 실행해줌
+  // 2. return문에 있는걸 array로 담아서 반환해줌
+  // 3. 유용한 파라미터 2개(배열값, 인덱스)사용 가능
+  let [idx, setIdx] = useState(0);
   return (
     <div className="App">
       <div className="black-nav">
@@ -52,7 +60,7 @@ function App() {
         버튼
       </button>
 
-      <div className="list">
+      {/* <div className="list">
         <h4>
           {title[0]}
           <span onClick={likeUp}>👍</span>
@@ -65,21 +73,58 @@ function App() {
         <p>2월 17일 발행</p>
       </div>
       <div className="list">
-        <h4>{title[2]}</h4>
+        <h4
+          onClick={() => {
+            setModal(!modal);
+          }}
+        >
+          {title[2]}
+        </h4>
         <p>2월 17일 발행</p>
-      </div>
+      </div> */}
 
-      <Modal />
+      {title.map(function (a, i) {
+        return (
+          <div className="list" key={i}>
+            <h4
+              onClick={() => {
+                setModal(!modal);
+                setIdx(i);
+              }}
+            >
+              {title[i]}
+              <span
+                onClick={() => {
+                  let copy = [...like];
+                  copy[i]++;
+                  setLike(copy);
+                }}
+              >
+                👍
+              </span>
+              {like[i]}
+            </h4>
+            <p>2월 17일 발행</p>
+          </div>
+        );
+      })}
+      {modal ? <Modal title={title} setTitle={setTitle} idx={idx} /> : null}
     </div>
   );
 }
+// props
+// props전송은 부모->자식만 가능(불륜, 패륜 금지)
+// 1. 부모 -> 자식 state 전송하는 법
+// 2. <자식컴포넌트 작명={state이름}>
+// 3. props 파라미터 등록 후 porps.작명
 
-function Modal() {
+function Modal(props) {
   return (
-    <div className="modal">
-      <h4>제목</h4>
+    <div className="modal" style={{ background: props.color }}>
+      <h4>{props.title[props.idx]}</h4>
       <p>날짜</p>
       <p>상세내용</p>
+      <button>글수정</button>
     </div>
   );
 }
