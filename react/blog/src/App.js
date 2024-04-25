@@ -1,6 +1,3 @@
-//array,object state변경하는법 까지 들었음
-//Component 들으면 됨
-
 /* eslint-disable */
 // import해놓고 안쓰는거나 선언해놓고 안쓰는 변수들 warning으로 알려주는건데 귀찮아서 일단 끔
 
@@ -9,120 +6,157 @@ import { useState } from "react";
 
 function App() {
   const [title, setTitle] = useState([
-    "남자 코트 추천",
-    "강남 우동맛집",
-    "파이썬독학",
+    "나1번 게시글",
+    "가2번 게시글",
+    "다3번 게시글",
   ]);
-  // useState에 ['기본값', 함수]들어있고 Destructuring문법으로
-  // const [a, b] 에 기본값과 함수를 넣어주는거임
-  // 왜 let놔두고 state를 써야함?
-  // let은 변경되더라도 리렌더링이 안되는데, state는 변경될때마다 html전체가 자동으로 리렌더링 됨
   const [like, setLike] = useState([0, 0, 0]);
+  const [modal, setModal] = useState(false);
+  const [titleIdx, setTitleIdx] = useState(0);
+  const [userInput, setUserInput] = useState("");
 
-  // 동적인 UI만드는 step
-  // 1. html css로 미리 디자인 완성
-  // 2. UI의 현재 상태를 state로 저장
-  // 3. state에 따라 UI가 어떻게 보일지 작성
-  let [modal, setModal] = useState(false);
+  //날짜
+  const [year, setYear] = useState([2024, 2023, 2023]);
+  const [month, setMonth] = useState([3, 2, 1]);
+  const [date, setDate] = useState([9, 8, 7]);
+  const [hours, setHours] = useState([10, 9, 7]);
+  const [minutes, setMinutes] = useState([45, 14, 2]);
 
-  // map함수
-  // 1.왼쪽 array 자료길이만큼 내부코드 실행해줌
-  // 2. return문에 있는걸 array로 담아서 반환해줌
-  // 3. 유용한 파라미터 2개(배열값, 인덱스)사용 가능
-  let [idx, setIdx] = useState(0);
+  // 오름차순 정렬
+  const sortList = () => {
+    let copy = [...title];
+    copy.sort();
+    setTitle(copy);
+  };
+
+  // 좋아요 수 증가
+  const incrementLike = (idx, event) => {
+    event.stopPropagation();
+    let copy = [...like];
+    copy[idx]++;
+    setLike(copy);
+  };
+
+  // 모달창 보여주기/숨기기
+  const showModal = (idx) => {
+    setModal(!modal);
+    setTitleIdx(idx);
+  };
+
+  // 게시글 삭제
+  const deleteArticle = (idx) => {
+    let copy = [...title];
+    copy.splice(idx, 1);
+    setTitle(copy);
+  };
+  // 사용자 입력값 저장
+  const createUserInput = (event) => {
+    setUserInput(event.target.value);
+  };
+
+  // 게시글 생성
+  const createArticle = () => {
+    if (userInput !== "") {
+      let copy = [...title];
+      copy.unshift(userInput);
+      setTitle(copy);
+      let tmp = [...like];
+      tmp.unshift(0);
+      setLike(tmp);
+      // 날짜 시간 저장
+      const now = new Date();
+      let copyYear = [...year];
+      copyYear.unshift(now.getFullYear());
+      setYear(copyYear);
+
+      let copyMonth = [...month];
+      copyMonth.unshift(now.getMonth() + 1);
+      setMonth(copyMonth);
+
+      let copyDate = [...date];
+      copyDate.unshift(now.getDate());
+      setDate(copyDate);
+
+      let copyHours = [...hours];
+      copyHours.unshift(now.getHours());
+      setHours(copyHours);
+
+      let copyMinutes = [...minutes];
+      copyMinutes.unshift(now.getMinutes());
+      setMinutes(copyMinutes);
+
+      document.querySelector("input").value = "";
+    }
+  };
+
   return (
     <div className="App">
       <div className="black-nav">
         <h4>ReactBlog</h4>
       </div>
-      <button
-        onClick={() => {
-          let copy = [...title];
-          copy.sort();
-          setTitle(copy);
-        }}
-      >
-        가나다순정렬
-      </button>
+      {/* 가나다순정렬 버튼 누르면 게시글 가나다순 정렬 */}
+      <button onClick={sortList}>가나다순정렬</button>
 
-      <button
-        onClick={() => {
-          // state변경 함수는 기존state와 신규 state가 다른 경우에만 변경을 해줌
-          // 참조형객체는 얕은복사를 하면 주소값을 복사해와서 새로운값을 변경하면 원본도 변경됨
-          // 그래서 새로운 값을 변경하고 state변경함수에 넣으면 기존state값도 바껴있어서 결국 기존state==신규state라서
-          // 변경을 안해줌
-          // 해결방법은 spread나 다른 deepcopy로 원본데이터를 깊은복사해서 변경 후에 state변경 함수에 넣어줘야함
-          let copy = [...title];
-          copy[0] = "여자 코트 추천";
-          setTitle(copy);
-        }}
-      >
-        버튼
-      </button>
-
-      {/* <div className="list">
-        <h4>
-          {title[0]}
-          <span onClick={likeUp}>👍</span>
-          {like}
-        </h4>
-        <p>2월 17일 발행</p>
-      </div>
-      <div className="list">
-        <h4>{title[1]}</h4>
-        <p>2월 17일 발행</p>
-      </div>
-      <div className="list">
-        <h4
-          onClick={() => {
-            setModal(!modal);
-          }}
-        >
-          {title[2]}
-        </h4>
-        <p>2월 17일 발행</p>
-      </div> */}
-
-      {title.map(function (a, i) {
+      {/* 게시글 */}
+      {title.map((arr, idx) => {
         return (
-          <div className="list" key={i}>
+          <div className="list" key={idx}>
             <h4
               onClick={() => {
-                setModal(!modal);
-                setIdx(i);
+                showModal(idx);
               }}
             >
-              {title[i]}
+              {title[idx]}
               <span
-                onClick={() => {
-                  let copy = [...like];
-                  copy[i]++;
-                  setLike(copy);
+                onClick={(event) => {
+                  incrementLike(idx, event);
                 }}
               >
                 👍
               </span>
-              {like[i]}
+              {like[idx]}
             </h4>
-            <p>2월 17일 발행</p>
+            <p>{`${year[idx]}년 ${month[idx]}월 ${date[idx]}일 ${hours[idx]}시 ${minutes[idx]}분`}</p>
+            <button
+              onClick={() => {
+                deleteArticle(idx);
+              }}
+            >
+              삭제
+            </button>
           </div>
         );
       })}
-      {modal ? <Modal title={title} setTitle={setTitle} idx={idx} /> : null}
+      {modal ? (
+        <Modal
+          title={title}
+          titleIdx={titleIdx}
+          year={year}
+          month={month}
+          date={date}
+          hours={hours}
+          minutes={minutes}
+        />
+      ) : null}
+      <input
+        onChange={(event) => {
+          createUserInput(event);
+        }}
+      ></input>
+      <button onClick={createArticle}>생성</button>
     </div>
   );
 }
-// props
-// props전송은 부모->자식만 가능(불륜, 패륜 금지)
-// 1. 부모 -> 자식 state 전송하는 법
-// 2. <자식컴포넌트 작명={state이름}>
-// 3. props 파라미터 등록 후 porps.작명
 
 function Modal(props) {
   return (
-    <div className="modal" style={{ background: props.color }}>
-      <h4>{props.title[props.idx]}</h4>
-      <p>날짜</p>
+    <div className="modal">
+      <h4>{props.title[props.titleIdx]}</h4>
+      <p>{`${props.year[props.titleIdx]}년 ${props.month[props.titleIdx]}월 ${
+        props.date[props.titleIdx]
+      }일 ${props.hours[props.titleIdx]}시 ${
+        props.minutes[props.titleIdx]
+      }분`}</p>
       <p>상세내용</p>
       <button>글수정</button>
     </div>
