@@ -3,7 +3,7 @@ import { Navbar, Nav, Container, Row, Col } from "react-bootstrap";
 import bg from "./img/bg.png";
 import { useState } from "react";
 import data from "./data";
-import ColTag from "./components/ColTag";
+import Card from "./components/Card";
 function App() {
   let [shoes, setShoes] = useState(data);
   return (
@@ -22,7 +22,7 @@ function App() {
       <Container>
         <Row>
           {shoes.map((arr, idx) => {
-            return <ColTag shoes={shoes} idx={idx} />;
+            return <Card arr={arr} idx={idx} />;
           })}
         </Row>
       </Container>
