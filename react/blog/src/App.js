@@ -138,6 +138,7 @@ function App() {
           minutes={minutes}
         />
       ) : null}
+
       <input
         onChange={(event) => {
           createUserInput(event);
