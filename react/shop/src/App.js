@@ -19,8 +19,6 @@ function App() {
   let navigate = useNavigate();
   return (
     <div className="App">
-      {/* 라우터로 페이지 나누는법 */}
-
       <Navbar bg="light" variant="light">
         <Container>
           <Navbar.Brand href="#home">ShoeShop</Navbar.Brand>
@@ -70,6 +68,7 @@ function App() {
           }
         />
         <Route path="/detail/:id" element={<Detail shoes={shoes} />} />
+        {/* /detail/뒤에는 동적으로 변하는 값을 받기위해 :사용  뒤의 id는 가독성과 명확성을 위해 씀 식별자의 역할이라서 대부분 id를 씀*/}
       </Routes>
     </div>
   );
