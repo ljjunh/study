@@ -1,11 +1,7 @@
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Nav } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-
 const Detail = (props) => {
-  useEffect(() => {
-    console.log("안녕");
-  });
   //mount, updata시 실행
   // useEffect 안에 있는 코드는 html 렌더링 후에 동작함
   // useEffect에 넣어두면 좋은것들
@@ -21,10 +17,10 @@ const Detail = (props) => {
   // 파라미터는 문자열이니까 정수로 변환해주고 쓰기
   const data = props.shoes.find((item) => item.id == id);
   // 변환하기 귀찮아서 문자열인 파라미터와 정수형인 id ==로 비교
-  let [alert, setAlert] = useState(true);
+  let [alertPage, setAlertPage] = useState(true);
   useEffect(() => {
     const timer = setTimeout(() => {
-      setAlert(false);
+      setAlertPage(false);
     }, 2000);
     return () => {
       //기존 타이머는 제거
@@ -42,13 +38,27 @@ const Detail = (props) => {
   // useEffect 동작 전에 실행하려면 return()=>{}
   // useEffect(()=>{}, [count]) 5. 특정 state변경시에만 실행하려면 [state명]
 
-  //과제!!! input에 숫자만 입력하게만드려고 다른값오면 알려주기
-  // 1. 알림창 만들고 state연결하고 false
-  // 2. useEffect에 input값 숫자아니면 알림창 뜨도록
+  //input에 숫자말고 다른거 입력하면 alert
+  const [num, setNum] = useState("");
+  useEffect(() => {
+    if (isNaN(num) == true) {
+      alert("숫자만 입력 가능합니다");
+    }
+  }, [num]);
 
+  // 탭 만들기
+  const [tabState, setTabState] = useState(0);
+  // Detail 컴포넌트 등장할때 애니메이션 주기
+  const [fade2, setFade2] = useState("");
+  useEffect(() => {
+    setFade2("end");
+    return () => {
+      setFade2("");
+    };
+  }, []);
   return (
-    <Container>
-      {alert ? (
+    <Container className={`start ${fade2}`}>
+      {alertPage ? (
         <div className="alert alert-warning">2초이내 구매시 할인</div>
       ) : null}
       {count}
@@ -67,13 +77,68 @@ const Detail = (props) => {
           />
         </Col>
         <Col md={6}>
+          <input
+            onChange={(e) => {
+              setNum(e.target.value);
+            }}
+          ></input>
           <h4>{data.title}</h4>
           <p>{data.content}</p>
           <p>{data.price}원</p>
           <button className="btn btn-danger">주문하기</button>
         </Col>
       </Row>
+      <Nav variant="tabs" defaultActiveKey="link0">
+        <Nav.Item>
+          <Nav.Link
+            onClick={() => {
+              setTabState(0);
+            }}
+            eventKey="link0"
+          >
+            버튼0
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link
+            onClick={() => {
+              setTabState(1);
+            }}
+            eventKey="link1"
+          >
+            버튼1
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link
+            onClick={() => {
+              setTabState(2);
+            }}
+            eventKey="link2"
+          >
+            버튼2
+          </Nav.Link>
+        </Nav.Item>
+      </Nav>
+      <TabContent tabState={tabState} />
     </Container>
   );
 };
+function TabContent({ tabState }) {
+  let [fade, setFade] = useState("");
+  useEffect(() => {
+    let timer = setTimeout(() => {
+      setFade("end");
+    }, 100);
+    return () => {
+      setFade("");
+      clearTimeout(timer);
+    };
+  }, [tabState]);
+  return (
+    <div className={`start ${fade}`}>
+      {[<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][tabState]}
+    </div>
+  );
+}
 export default Detail;
