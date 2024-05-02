@@ -1,6 +1,8 @@
 import { Container, Row, Col, Nav } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { addItem } from "../store";
 const Detail = (props) => {
   //mount, updata시 실행
   // useEffect 안에 있는 코드는 html 렌더링 후에 동작함
@@ -8,6 +10,7 @@ const Detail = (props) => {
   // 오래걸리는 작업을 넣어두면 html을 먼저 보여주고 실행해서 좋음
   // 서버에서 데이터 가져오는 작업
   // 타이머 장착하는거
+  let dispatch = useDispatch();
 
   let [count, setCount] = useState(0);
 
@@ -85,7 +88,14 @@ const Detail = (props) => {
           <h4>{data.title}</h4>
           <p>{data.content}</p>
           <p>{data.price}원</p>
-          <button className="btn btn-danger">주문하기</button>
+          <button
+            className="btn btn-danger"
+            onClick={() => {
+              dispatch(addItem({ id: data.id, name: data.content, count: 0 }));
+            }}
+          >
+            주문하기
+          </button>
         </Col>
       </Row>
       <Nav variant="tabs" defaultActiveKey="link0">
