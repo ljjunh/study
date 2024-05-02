@@ -91,7 +91,7 @@ const Detail = (props) => {
           <button
             className="btn btn-danger"
             onClick={() => {
-              dispatch(addItem({ id: data.id, name: data.content, count: 0 }));
+              dispatch(addItem({ id: data.id, name: data.title, count: 0 }));
             }}
           >
             주문하기

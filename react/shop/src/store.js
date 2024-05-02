@@ -27,11 +27,30 @@ const cartData = createSlice({
       state[num].count += 1;
     },
     addItem(state, action) {
-      state.push(action.payload);
+      const chkItem = state.findIndex((item) => {
+        return item.id === action.payload.id;
+      });
+      if (chkItem === -1) {
+        state.push(action.payload);
+      } else {
+        state[chkItem].count += 1;
+      }
+      //만약 id가 같은게 있으면 count만 추가
+      //없으면 push
+    },
+    removeItem(state, action) {
+      const tmp = state.findIndex((item) => {
+        return item.id === action.payload;
+      });
+      console.log(tmp);
+      if (tmp !== -1) {
+        //if문 없으면 없는 요소 클릭하면 -1반환해서 마지막꺼 지워버림
+        state.splice(tmp, 1);
+      }
     },
   },
 });
-export let { addCount, addItem } = cartData.actions;
+export let { addCount, addItem, removeItem } = cartData.actions;
 
 export default configureStore({
   reducer: {
