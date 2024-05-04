@@ -59,6 +59,21 @@ const Detail = (props) => {
       setFade2("");
     };
   }, []);
+
+  // 상세페이지에서 봤던 상품의 id를 localStorage에 저장하기
+  useEffect(() => {
+    //data.id
+    let watchedArr = JSON.parse(localStorage.getItem("watched"));
+    //새로운 id 추가
+    watchedArr.push(data.id);
+    //중복제거
+    watchedArr = new Set(watchedArr);
+    //다시 arr로 변환
+    watchedArr = Array.from(watchedArr);
+    //localStorage에 변경된 arr 덮어쓰기
+    localStorage.setItem("watched", JSON.stringify(watchedArr));
+  }, []);
+
   return (
     <Container className={`start ${fade2}`}>
       {alertPage ? (
