@@ -2,6 +2,7 @@ import "./App.css";
 import Viewer from "./components/Viewer";
 import Controller from "./components/Controller";
 import { useState, useEffect, useRef } from "react";
+import Even from "./components/Even";
 function App() {
   const [cnt, setCnt] = useState(0);
   const [input, setInput] = useState("");
@@ -44,6 +45,7 @@ function App() {
       </section>
       <section>
         <Viewer cnt={cnt} />
+        {cnt % 2 === 0 ? <Even /> : null}
       </section>
       <section>
         <Controller onClickButton={onClickButton} />
