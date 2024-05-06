@@ -6,12 +6,18 @@ const List = ({ todos }) => {
   const onChangeSearch = (e) => {
     setSearch(e.target.value);
   };
-  const getSearchResult = () => {
+  const getFilteredData = () => {
+    // if (search === "") {
+    //   return todos;
+    // }
+    // return todos.filter((item) => {
+    //   item.content.includes(search);
+    // });
     return search === ""
       ? todos
-      : todos.filter((item) => {
-          return item.content.toLowerCase().includes(search.toLowerCase());
-        });
+      : todos.filter((item) =>
+          item.content.toLowerCase().includes(search.toLowerCase())
+        );
   };
   return (
     <div className="List">
@@ -21,10 +27,11 @@ const List = ({ todos }) => {
         onChange={onChangeSearch}
         placeholder="검색어를 입력하세요"
       />
-      <div className="todos_wrapper"></div>
-      {getSearchResult().map((item) => {
-        return <TodoItem key={item.id} {...item} />;
-      })}
+      <div className="todos_wrapper">
+        {getFilteredData().map((item) => {
+          return <TodoItem key={item.id} {...item} />;
+        })}
+      </div>
     </div>
   );
 };
