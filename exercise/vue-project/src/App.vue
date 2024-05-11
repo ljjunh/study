@@ -1,19 +1,20 @@
 <template>
   <div class="container">
-    <NavBar />
+    <SideNavBar />
+    <TopNavBar />
     <RouterView />
   </div>
 </template>
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
-import NavBar from "./components/NavBar.vue";
+import SideNavBar from "@/components/SideNavBar.vue";
+import TopNavBar from "./components/TopNavBar.vue";
 </script>
 
 <style scoped>
 .container {
-  width: 100%;
+  display: flex;
   height: 100vh;
-  background-color: #0b1010;
-  color: #fff;
+  width: 100vw;
 }
 </style>
