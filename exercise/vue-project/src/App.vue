@@ -1,9 +1,9 @@
 <template>
-  <div class="container">
-    <SideNavBar />
-    <TopNavBar />
+  <SideNavBar />
+  <TopNavBar />
+  <main>
     <RouterView />
-  </div>
+  </main>
 </template>
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
@@ -12,9 +12,8 @@ import TopNavBar from "./components/TopNavBar.vue";
 </script>
 
 <style scoped>
-.container {
-  display: flex;
-  height: 100vh;
-  width: 100vw;
+main {
+  padding-top: 50px;
+  padding-left: 105px;
 }
 </style>

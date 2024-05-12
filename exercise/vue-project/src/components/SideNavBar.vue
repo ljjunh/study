@@ -40,7 +40,7 @@ const sidenavToggle = () => {
 </script>
 <style scoped>
 .sidenav {
-  height: calc(100vh - 50px);
+  height: 100vw;
   overflow: hidden;
   position: fixed;
   top: 50px;
@@ -48,7 +48,7 @@ const sidenavToggle = () => {
   padding: 32px 16px;
   background-color: #030303;
   transition: width 0.6s;
-  border-right: 2px solid #4b4651;
+  border-right: 3px solid #4b4651;
 }
 
 .sidenav label .close-btn {
