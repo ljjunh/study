@@ -31,6 +31,7 @@
 </template>
 
 <script setup>
+// 로그인하면 회원가입버튼 안보이고 마이페이지랑 알람 뜨도록
 import { ref, onMounted, onBeforeUnmount } from "vue";
 import { RouterLink, RouterView } from "vue-router";
 
