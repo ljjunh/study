@@ -13,7 +13,7 @@
       <div class="content">
         <div class="content-span">
           <span>1.</span>
-          <div>
+          <div class="star-score">
             <i class="bx bxs-star"></i>
             <span class="score">4.3</span>
           </div>
@@ -58,7 +58,7 @@ section {
   align-items: center;
   flex-direction: column;
 }
-.movie-video {
+.movie-container .movie-video {
   border-radius: 20px;
   box-shadow: 10px 10px 50px 5px black;
 }
@@ -66,7 +66,7 @@ section {
   color: #fff;
   display: flex;
   margin-bottom: 50px;
-  width: 975px;
+  width: 1200px;
   height: 300px;
 }
 .movie-container .content h1 {
@@ -77,9 +77,13 @@ section {
 .movie-container .content .content-span {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   font-size: 48px;
   text-align: right;
+}
+.movie-container .content .content-span .star-score {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
 }
 .movie-container .content .content-span .score {
   font-size: 20px;
@@ -88,11 +92,16 @@ section {
   font-size: 25px;
 }
 .movie-container .content .content-text {
-  margin-left: 50px;
+  margin-left: 25px;
   font-size: 17px;
+  line-height: 145%;
 }
 .movie-container .content .content-text .gern {
   margin: 20px 0px;
+  margin-left: 10px;
+}
+.movie-container .content .content-text p {
+  margin-left: 10px;
 }
 .movie-container .content .content-text .gern .release-date {
   margin-left: 10px;
@@ -100,6 +109,9 @@ section {
 .movie-container .content .poster {
   margin-left: 100px;
   margin-right: 100px;
+  /* position: absolute;
+  top: 580px;
+  right: 300px; */
 }
 .movie-container .content .poster img {
   width: 204px;
