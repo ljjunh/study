@@ -23,7 +23,7 @@
         </form>
         <ul class="nav-links">
           <li><RouterLink :to="{ name: 'signin' }">로그인</RouterLink></li>
-          <li><a href="#">회원가입</a></li>
+          <li><RouterLink :to="{ name: 'signup' }">회원가입</RouterLink></li>
         </ul>
       </div>
     </div>
