@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/logo.css" />
+  </head>
+  <body>
+    <main>
+      <h2>MovieTalk</h2>
+    </main>
+    <script>
+      let images = [
+        'url("img/effect.jpeg")',
+        'url("img/movie2.jpeg")',
+        'url("img/movie3.jpeg")',
+        'url("img/movie4.jpeg")',
+        'url("img/movie5.jpeg")',
+        'url("img/movie6.jpeg")',
+        'url("img/movie7.jpeg")',
+        'url("img/movie8.jpeg")',
+      ];
+      let main = document.querySelector("main");
+      main.onclick = function (e) {
+        let x = e.pageX - e.target.offsetLeft;
+        let y = e.pageY - e.target.offsetTop;
+
+        let splash = document.createElement("span");
+        splash.style.left = x + "px";
+        splash.style.top = y + "px";
+
+        let bg = images[Math.floor(Math.random() * images.length)];
+        splash.style.backgroundImage = bg;
+
+        this.appendChild(splash);
+        setTimeout(() => {
+          splash.remove();
+        }, 4000);
+      };
+    </script>
+  </body>
+</html>
