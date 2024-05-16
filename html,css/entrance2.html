@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/entrance2.css" />
+    <!-- gasp, ScrollTrigger-->
+    <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
+    <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="items">
+        <div class="item">
+          <img src="" />
+        </div>
+        <div class="item">
+          <img src="" />
+        </div>
+        <div class="item">
+          <img src="" />
+        </div>
+        <div class="item">
+          <img src="" />
+        </div>
+        <div class="item">
+          <img src="" />
+        </div>
+        <div class="item">
+          <img src="" />
+        </div>
+        <div class="item">
+          <img src="" />
+        </div>
+        <div class="item">
+          <img src="" />
+        </div>
+        <div class="item">
+          <img src="" />
+        </div>
+        <div class="item">
+          <img src="" />
+        </div>
+        <div class="item">
+          <img src="" />
+        </div>
+        <div class="item">
+          <img src="" />
+        </div>
+        <div class="item">
+          <img src="" />
+        </div>
+        <div class="item">
+          <img src="" />
+        </div>
+        <div class="item">
+          <img src="" />
+        </div>
+        <div class="item">
+          <img src="" />
+        </div>
+        <div class="item">
+          <img src="" />
+        </div>
+        <div class="item">
+          <img src="" />
+        </div>
+        <div class="item">
+          <img src="" />
+        </div>
+        <div class="item">
+          <img src="" />
+        </div>
+      </div>
+      <div class="overlay">
+        <h1>CinePhile's Lounge</h1>
+        <a href="#">Get Started</a>
+      </div>
+    </div>
+
+    <script>
+      let items = document.querySelectorAll(".item img");
+      items.forEach((val, index) => {
+        val.src = "./img/movie" + (index + 1) + ".jpeg";
+      });
+
+      var tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".wrapper",
+          pin: true,
+          scrub: 2,
+          start: "top top",
+          end: "50%+=500px",
+        },
+      });
+      tl.to(".items img", { scale: 1 }, 0);
+      tl.to(".items", { scale: 2, rotate: 0 }, 0);
+      tl.to(".overlay", { height: "105%" }, 0.2);
+      tl.to(".overlay h1", { scale: 0.6, height: "45%" }, 0.6);
+      tl.to(".overlay a", { scale: 0.2 }, 0.6);
+      tl.to(".items", { scale: 0.8, opacity: 0.2 }, 0.6);
+    </script>
+  </body>
+</html>
