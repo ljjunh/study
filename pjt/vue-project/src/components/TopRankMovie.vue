@@ -2,13 +2,13 @@
   <section>
     <div class="movie-container">
       <div>
-        <iframe
-          class="movie-video"
-          width="1300"
-          height="530"
-          src="https://www.youtube.com/embed/pMAPj6WVsT4?autoplay=1&controls=0&loop=1&playlist=pMAPj6WVsT4&mute=1"
-          allow="autoplay"
-        ></iframe>
+        <div class="movie-wrapper">
+          <iframe
+            class="movie-video"
+            src="https://www.youtube.com/embed/pMAPj6WVsT4?autoplay=1&controls=0&loop=1&playlist=pMAPj6WVsT4&mute=1"
+            allow="autoplay"
+          ></iframe>
+        </div>
       </div>
       <div class="content">
         <div class="content-span">
@@ -59,8 +59,21 @@ section {
   flex-direction: column;
 }
 .movie-container .movie-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  object-fit: cover;
+  box-shadow: 10px 10px 50px 5px black;
   border-radius: 20px;
   box-shadow: 10px 10px 50px 5px black;
+}
+.movie-wrapper {
+  width: 1115px;
+  height: 500px;
+  position: relative;
 }
 .movie-container .content {
   color: #fff;

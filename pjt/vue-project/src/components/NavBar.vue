@@ -7,7 +7,7 @@
         </div>
         <ul class="nav-links">
           <li><RouterLink :to="{ name: 'home' }">홈</RouterLink></li>
-          <li><a href="#">영화</a></li>
+          <li><RouterLink :to="{ name: 'slider' }">영화</RouterLink></li>
           <li><a href="#">내가 찜한 리스트</a></li>
           <li><a href="#">보관함</a></li>
         </ul>
