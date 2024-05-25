@@ -17,7 +17,7 @@ module.exports = {
       "warn",
       { allowConstantExport: true },
     ],
-    "no-unused-vars": "off",
-    "react/prop-types": "off",
+    "no-unused-vars": "off", // 실제 사용안한 변수 선언했을때 오류나는거 끄기
+    "react/prop-types": "off", // 프롭스 타입 검사 하는거같은데 일단 끄라니까 끔
   },
 };

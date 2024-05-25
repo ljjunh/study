@@ -5,4 +5,5 @@ const Header = () => {
     </header>
   );
 };
-export default Header;
+
+export default Header; // Header컴포넌트를 기본값으로 내보내줌

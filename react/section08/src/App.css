@@ -1,8 +1,0 @@
-.App {
-  display: flex;
-  flex-direction: column;
-  gap: 10px; /* display가 flex인 것만 적용, 요소 사이 간격 */
-
-  width: 500px;
-  margin: 0 auto;
-}
