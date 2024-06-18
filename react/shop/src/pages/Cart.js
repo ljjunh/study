@@ -1,20 +1,16 @@
 import { Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { increase } from "../store/userSlice";
-import { addCount, removeItem } from "../store";
+import { changeName, increase } from "../store/userSlice";
+import { addCount } from "../store";
 const Cart = () => {
   const state = useSelector((state) => state);
-  let dispatch = useDispatch();
+  const dispatch = useDispatch();
   return (
     <div>
-      {state.user.name} / {state.user.age}의 장바구니
-      <button
-        onClick={() => {
-          dispatch(increase(100));
-        }}
-      >
-        버튼
-      </button>
+      <h6>
+        {state.user.name} {state.user.age}의 장바구니
+      </h6>
+      <button onClick={() => dispatch(increase(10))}>버튼</button>
       <Table>
         <thead>
           <tr>
@@ -25,13 +21,12 @@ const Cart = () => {
           </tr>
         </thead>
         <tbody>
-          {state.cartData.map((item, idx) => {
+          {state.cart.map((item, idx) => {
             return (
-              <tr key={idx}>
-                <td>{item.id}</td>
+              <tr key={item.id}>
+                <td>{idx + 1}</td>
                 <td>{item.name}</td>
                 <td>{item.count}</td>
-                <td>안녕</td>
                 <td>
                   <button
                     onClick={() => {
@@ -39,15 +34,6 @@ const Cart = () => {
                     }}
                   >
                     +
-                  </button>
-                </td>
-                <td>
-                  <button
-                    onClick={() => {
-                      dispatch(removeItem(item.id));
-                    }}
-                  >
-                    삭제
                   </button>
                 </td>
               </tr>
