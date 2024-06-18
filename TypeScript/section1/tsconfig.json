@@ -1,0 +1,18 @@
+{
+  // target :ts코드를 컴파일해서 만들어지는 js코드의 버전을 설정하는 옵션
+  // outDir : 컴파일 결과로 생성될 js파일의 위치
+  // strict : 엄격모드(추론되지 않는 변수에 타입을 명시하지 않으면 오류나도록)
+  // moduleDetection : ts가 각각의 파일을 어떤 모듈로 감지할 것인지
+  // 타입스크립트 파일은 글로벌 모듈로 취급받기 때문에 파일이 다르더라도 변수 중복선언이 안됨
+  // 그래서 개별모듈로 바꿔줘야함. 이걸 자동으로 해주는게 "moduleDetection":"force"임
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "outDir": "dist",
+    "strict": false,
+    "moduleDetection": "force"
+  },
+  // include : 컴파일 할 ts파일들의 범위와 위치를 알려주는 옵션
+  "include": ["src"] //src 경로 아래에 있는 모든 파일을 포함해서 컴파일
+}
