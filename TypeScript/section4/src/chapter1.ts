@@ -7,7 +7,7 @@ type Operation = (a: number, b: number) => number;
 const add: Operation = (a, b) => a + b;
 const sub: Operation = (a, b) => a - b;
 const multiply: Operation = (a, b) => a * b;
-// 함수 타입 표현식을 쓰면 비슷한 함수를 한번의 타입으로 설정가능
+// 함수 타입 표현식을 쓰면 비슷한 함수를 한번의 타입으로 설정 가능
 
 // 타입 별칭 없이도 표현식만으로 타입 정의 가능
 const divide: (a: number, b: number) => number = (a, b) => a + b;
