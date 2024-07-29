@@ -18,27 +18,51 @@ export const WebcamRecorder: React.FC = () => {
   // 웹캠 시작 함수
   const startWebCam = async (): Promise<void> => {
     try {
-      // 유저의 미디어 장치에 접근
-      const mediaStream: MediaStream =
-        await navigator.mediaDevices.getUserMedia({
-          video: true,
-          audio: true,
-        });
-      // 비디오 엘리먼트에 스트림 연결
+      const originalStream = await navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: true,
+      });
+
+      const videoTrack = originalStream.getVideoTracks()[0];
+      const { width, height } = videoTrack.getSettings();
+
+      const canvas = document.createElement("canvas");
+      canvas.width = width!;
+      canvas.height = height!;
+      const ctx = canvas.getContext("2d")!;
+
+      const video = document.createElement("video");
+      video.srcObject = originalStream;
+      video.play();
+
+      video.onplaying = () => {
+        setInterval(() => {
+          ctx.save();
+          ctx.scale(-1, 1);
+          ctx.drawImage(video, -width!, 0, width!, height!);
+          ctx.restore();
+        }, 1000 / 30); // 30 FPS
+      };
+
+      const flippedStream = canvas.captureStream(30);
+
+      // 오디오 트랙을 flippedStream에 추가
+      originalStream.getAudioTracks().forEach((track) => {
+        flippedStream.addTrack(track);
+      });
+
       if (webcamRef.current) {
-        webcamRef.current.srcObject = mediaStream;
+        webcamRef.current.srcObject = flippedStream;
       }
-      // 스트림 상태 업데이트
-      setWebcamStream(mediaStream);
+      setWebcamStream(flippedStream);
     } catch (error: unknown) {
       console.error("웹캠 접근 오류:", error);
     }
   };
-
-  // 좌우반전 토글 함수
-  const toggleMirror = (): void => {
-    setIsMirrored((prev: boolean) => !prev);
-  };
+  // // 좌우반전 토글 함수
+  // const toggleMirror = (): void => {
+  //   setIsMirrored((prev: boolean) => !prev);
+  // };
 
   // 녹화 시작 함수
   const startRecording = useCallback((): void => {
@@ -108,12 +132,12 @@ export const WebcamRecorder: React.FC = () => {
         ref={webcamRef}
         autoPlay
         muted
-        style={{ transform: isMirrored ? "scaleX(1)" : "scaleX(-1)" }}
+        // style={{ transform: isMirrored ? "scaleX(1)" : "scaleX(-1)" }}
       />
       <button onClick={startWebCam}>카메라 켜기</button>
-      <button onClick={toggleMirror}>
+      {/* <button onClick={toggleMirror}>
         {isMirrored ? "좌우반전 해제" : "좌우반전 적용"}
-      </button>
+      </button> */}
       <button onClick={isRecording ? stopRecording : startRecording}>
         {isRecording ? "녹화 중지" : "녹화 시작"}
       </button>
