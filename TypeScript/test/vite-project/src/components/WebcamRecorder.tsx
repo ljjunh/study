@@ -4,8 +4,6 @@ export const WebcamRecorder: React.FC = () => {
   const webcamRef = useRef<HTMLVideoElement>(null);
   // 웹캠 스트림을 저장할 상태
   const [webcamStream, setWebcamStream] = useState<MediaStream | null>(null);
-  // 좌우반전 상태
-  const [isMirrored, setIsMirrored] = useState<boolean>(false);
 
   //  녹화 기능
   // MediaRecorder 참조

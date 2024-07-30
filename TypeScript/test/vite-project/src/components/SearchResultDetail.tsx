@@ -1,10 +1,14 @@
 import React from "react";
 import { useParams, Link, useLocation } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 export const SearchResultDetail: React.FC = () => {
   const { videoId } = useParams<{ videoId: string }>();
   const location = useLocation();
   const query = new URLSearchParams(location.search).get("q") || "";
+  const nav = useNavigate();
+  const handleButtonClick = () => {
+    nav(`/practice/${videoId}`);
+  };
 
   return (
     <div>
@@ -30,6 +34,12 @@ export const SearchResultDetail: React.FC = () => {
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           ></iframe>
+          <button
+            onClick={handleButtonClick}
+            style={{ position: "absolute", right: "-80px" }}
+          >
+            연습하기
+          </button>
         </div>
       </div>
     </div>

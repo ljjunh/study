@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useLocation, Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-const API_KEY = "바꿔쓰셈";
+const API_KEY = "AIzaSyAzIWM87CH4e-Q_cVGQ_Vg8LzsAKnOAFe0";
 const BASE_URL = "https://www.googleapis.com/youtube/v3/search";
 
 interface YouTubeItem {
@@ -29,7 +29,7 @@ const fetchVideos = async (query: string): Promise<YouTubeItem[]> => {
         q: `${query} #shorts`,
         type: "video",
         videoDuration: "short",
-        maxResults: 50,
+        maxResults: 4,
         key: API_KEY,
       },
     });

@@ -53,14 +53,7 @@ const PoseLandmarkerComponent: React.FC = () => {
     // 웹캠이 꺼져 있다면 켜기
     if (!webcamRunning) {
       // 비디오 스트림 요청
-      const constraints = {
-        video: {
-          // 전면 카메라 사용
-          facingMode: "user",
-          width: 640,
-          height: 480,
-        },
-      };
+      const constraints = { video: true };
       const stream = await navigator.mediaDevices.getUserMedia(constraints);
       // 비디오 요소에 스트림 연결
       if (videoRef.current) {
@@ -86,7 +79,7 @@ const PoseLandmarkerComponent: React.FC = () => {
         videoRef.current,
         startTimeMs
       );
-      // canvasCtx.save();
+      canvasCtx.save();
       // 이전 프레임 자르기
       canvasCtx.clearRect(
         0,
@@ -94,6 +87,9 @@ const PoseLandmarkerComponent: React.FC = () => {
         canvasRef.current!.width,
         canvasRef.current!.height
       );
+      // 캔버스 좌우 반전(웹캠 이미지랑 일치시키려고)
+      canvasCtx.scale(-1, 1);
+      canvasCtx.translate(-canvasRef.current!.width, 0);
 
       // 감지된 각 포즈의 랜드마크와 연결선 그리기
       for (const landmark of results.landmarks) {
@@ -139,7 +135,7 @@ const PoseLandmarkerComponent: React.FC = () => {
       <div style={{ position: "relative" }}>
         <video
           ref={videoRef}
-          style={{ width: "640px", height: "480px" }}
+          style={{ width: "640px", height: "480px", transform: "scaleX(-1)" }}
           autoPlay
           playsInline
         />
